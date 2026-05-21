@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CineMax — Онлайн Бронирование</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav>
+  <a href="#" class="nav-logo">CINE<span>MAX</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">О нас</a></li>
+    <li><a href="#movies">Фильмы</a></li>
+    <li><a href="#movies">Расписание</a></li>
+    <li><a href="#movies">Контакты</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})">Забронировать</button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-badge">🎬 Лучший кинотеатр города</div>
+  <h1>ОНЛАЙН<br><em>БРОНЬ</em><br>МЕСТ</h1>
+  <p class="hero-sub">Выбирай фильм, время и место — всё онлайн. Без очередей, без ожидания. Твоё кресло ждёт тебя.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Залов</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Фильмов</div></div>
+    <div class="stat"><div class="stat-num">4K</div><div class="stat-label">Качество</div></div>
+  </div>
+  <div class="scroll-hint">
+    <span>Прокрутить вниз</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="about">
+  <div>
+    <div class="about-tag">О нас</div>
+    <h2>КИНО<br>КАК ТЕБЕ<br>НРАВИТСЯ</h2>
+    <p>CineMax — современный мультиплекс в центре города. Мы предлагаем уникальный кинематографический опыт: залы с объёмным звуком Dolby Atmos, экраны 4K и удобные кресла с подлокотниками.</p>
+    <p>Бронируй места онлайн за несколько секунд и приходи прямо на сеанс — без лишней суеты.</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎧</div>
+      <h4>Dolby Atmos</h4>
+      <p>Объёмный звук в каждом зале</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📺</div>
+      <h4>4K LASER</h4>
+      <p>Идеальная картинка на экране</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🍿</div>
+      <h4>VIP-кресла</h4>
+      <p>Комфорт и уют на любом месте</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h4>Быстрая бронь</h4>
+      <p>Бронируй онлайн за 1 минуту</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MOVIES ═══ -->
+<section class="movies-section" id="movies">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">В прокате сейчас</div>
+      <div class="section-title">АКТУАЛЬНЫЕ ФИЛЬМЫ</div>
+    </div>
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterMovies('all', this)">Все</button>
+      <button class="tab-btn" onclick="filterMovies('action', this)">Экшн</button>
+      <button class="tab-btn" onclick="filterMovies('drama', this)">Драма</button>
+      <button class="tab-btn" onclick="filterMovies('comedy', this)">Комедия</button>
+      <button class="tab-btn" onclick="filterMovies('sci-fi', this)">Sci-Fi</button>
+    </div>
+  </div>
+  <div class="movies-grid" id="moviesGrid"></div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">CINE<span>MAX</span></div>
+  <p>© 2025 CineMax. Все права защищены.</p>
+  <p style="color:var(--muted);font-size:.8rem;">Баку, ул. Низами, 72</p>
+</footer>
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+
+    <div id="bookingView">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle">НАЗВАНИЕ ФИЛЬМА</div>
+          <div class="modal-subtitle" id="modalSubtitle">Выбери время и места</div>
+        </div>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+
+      <!-- STEP 1: Time -->
+      <div class="section-label">Выбери сеанс</div>
+      <div class="time-grid" id="timeGrid"></div>
+
+      <!-- STEP 2: Seats -->
+      <div class="section-label">Выбери места</div>
+      <div class="screen-bar"></div>
+      <div class="seat-legend">
+        <div class="legend-item"><div class="legend-box free"></div>Свободно</div>
+        <div class="legend-item"><div class="legend-box selected"></div>Выбрано</div>
+        <div class="legend-item"><div class="legend-box taken"></div>Занято</div>
+        <div class="legend-item"><div class="legend-box vip"></div>VIP</div>
+      </div>
+      <div class="seat-map" id="seatMap"></div>
+
+      <!-- STEP 3: Form -->
+      <div class="section-label">Данные покупателя</div>
+      <div class="booking-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Имя</label>
+            <input type="text" id="fName" placeholder="Иван" oninput="updateSummary()"/>
+          </div>
+          <div class="form-group">
+            <label>Фамилия</label>
+            <input type="text" id="fSurname" placeholder="Петров" oninput="updateSummary()"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="fEmail" placeholder="ivan@mail.ru" oninput="updateSummary()"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Телефон</label>
+            <input type="tel" id="fPhone" placeholder="+994 50 000 00 00" oninput="updateSummary()"/>
+          </div>
+          <div class="form-group">
+            <label>Тип билета</label>
+            <select id="fTicketType" onchange="updateSummary()">
+              <option value="standard">Стандарт — 10 ₼</option>
+              <option value="student">Студент — 7 ₼</option>
+              <option value="vip">VIP — 18 ₼</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="booking-summary" id="bookingSummary" style="margin-top:1.2rem;">
+        <div class="summary-row"><span class="summary-label">Фильм</span><span id="sumMovie">—</span></div>
+        <div class="summary-row"><span class="summary-label">Сеанс</span><span id="sumTime">—</span></div>
+        <div class="summary-row"><span class="summary-label">Места</span><span id="sumSeats">—</span></div>
+        <div class="summary-row"><span class="summary-label">Покупатель</span><span id="sumName">—</span></div>
+        <div class="summary-row"><span class="summary-label">Итого</span><span id="sumTotal">0 ₼</span></div>
+      </div>
+
+      <button class="confirm-btn" id="confirmBtn" onclick="confirmBooking()" disabled>Подтвердить бронирование</button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successView">
+      <div class="success-icon">🎟️</div>
+      <h3>БРОНИРОВАНИЕ ПОДТВЕРЖДЕНО!</h3>
+      <p>Ваш билет отправлен на email</p>
+      <div class="ticket-code" id="ticketCode">CX-000000</div>
+      <p id="ticketInfo" style="color:var(--muted);font-size:.85rem;"></p>
+      <button class="confirm-btn" style="margin-top:1.5rem;" onclick="closeModal()">Закрыть</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
