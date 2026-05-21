@@ -189,7 +189,25 @@
     transition: border-color .2s, transform .2s;
   }
   .feature-card:hover { border-color: rgba(232,184,75,.35); transform: translateY(-3px); }
-  .feature-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+  .feature-icon { margin-bottom: .6rem; }
+  .feature-icon svg { width: 22px; height: 22px; stroke: var(--gold); stroke-width: 1.8; }
+  .hero-badge svg { width: 14px; height: 14px; stroke: var(--gold); stroke-width: 2; vertical-align: middle; margin-right: 5px; }
+  .nav-icon svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; vertical-align: middle; margin-right: 4px; }
+  .rating svg { width: 12px; height: 12px; fill: var(--gold); stroke: none; vertical-align: middle; margin-right: 2px; }
+  .meta-icon svg { width: 12px; height: 12px; stroke: var(--muted); stroke-width: 2; vertical-align: middle; margin-right: 2px; }
+  .book-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; vertical-align: middle; margin-left: 5px; }
+  .close-btn svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; }
+  .success-icon svg { width: 64px; height: 64px; stroke: var(--gold); stroke-width: 1.5; }
+  .success-icon { margin-bottom: 1rem; animation: pop .5s cubic-bezier(.36,.07,.19,.97); }
+  .scroll-hint svg { width: 18px; height: 18px; stroke: var(--muted); stroke-width: 1.8; }
+  .footer-links { display: flex; gap: 1.5rem; align-items: center; }
+  .footer-link { display: flex; align-items: center; gap: .4rem; color: var(--muted); font-size: .8rem; text-decoration: none; transition: color .2s; }
+  .footer-link:hover { color: var(--gold); }
+  .footer-link svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; }
+  .img-error-icon { position: absolute; display: none; align-items: center; justify-content: center; }
+  .img-error-icon svg { width: 48px; height: 48px; stroke: var(--muted); stroke-width: 1.2; }
+  .poster-wrap.img-error .img-error-icon { display: flex; }
+  .poster-wrap.img-error .movie-poster-img { opacity: 0; }
   .feature-card h4 { font-size: .9rem; font-weight: 600; margin-bottom: .25rem; }
   .feature-card p { font-size: .8rem; color: var(--muted); }
  
@@ -277,12 +295,7 @@
   }
   .movie-card:hover .movie-poster-img { transform: scale(1.05); }
  
-  /* fallback when image fails */
-  .poster-wrap.img-error::after {
-    content: '🎬';
-    font-size: 4rem;
-    position: absolute;
-  }
+  /* fallback handled by .img-error-icon */
  
   .poster-overlay {
     position: absolute; inset: 0;
@@ -519,10 +532,6 @@
   .success-screen {
     text-align: center; padding: 1.5rem 0;
     display: none;
-  }
-  .success-icon {
-    font-size: 4rem; margin-bottom: 1rem;
-    animation: pop .5s cubic-bezier(.36, .07, .19, .97);
   }
   .success-screen h3 {
     font-family: 'Bebas Neue', sans-serif;
