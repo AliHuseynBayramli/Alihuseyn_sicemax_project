@@ -37,6 +37,7 @@ function renderMovies(filter) {
       <div class="poster-wrap">
         <img
           class="movie-poster-img"
+          loading="lazy"
           src="${m.poster}"
           alt="${m.title}"
           loading="lazy"

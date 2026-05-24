@@ -107,6 +107,7 @@
  
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
+    font-display: swap;
     font-size: clamp(4rem, 10vw, 9rem);
     letter-spacing: 4px;
     line-height: .95;
